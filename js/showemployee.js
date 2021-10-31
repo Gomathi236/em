@@ -35,65 +35,23 @@ function showTable() {
       var cell5 = newRow.insertCell(5);
       cell5.innerHTML = employee.role;
       var cell6 = newRow.insertCell(6);
-      cell6.innerHTML =  `<input type="submit" value="view" onclick='show(${index})'><button onclick='editEmployee(this)'>Edit</button> <input type="submit" value="delete" onclick=onDelete(this)> `;
-   
+      cell6.innerHTML = `<input type="submit" value="view" style="background-color:#8aacc8"; onclick='show(${index})'>
+      <input type="submit" value="Edit" style="background-color:#8aacc8" onclick='editEmployee(${index})'>
+       <input type="submit" value="delete" style="background-color:#8aacc8" onclick=onDelete(this)> `;
     });
 }
-function updateEmployee(){
-  let employee = {
-      name: nameElem.value,
-      number: numberElem.value,
-      email: emailElem.value,
-      address: addressElem.value,
-      city: cityElem.value,
-      role: roleElem.value,
-     
-    }
 
-    employees[employeeIndex] = employee;
-    localStorage.setItem('employees',JSON.stringify(employees))
-    let selectedRow = document.querySelector('[index="'+employeeIndex+'"]')
-
-    selectedRow.cells[0].innerHTML = employee.name;
-    selectedRow.cells[1].innerHTML = employee.number;
-    selectedRow.cells[2].innerHTML = employee.email;
-    selectedRow.cells[3].innerHTML = employee.address;
-    selectedRow.cells[4].innerHTML = employee.city;
-    selectedRow.cells[5].innerHTML = employee.role;
-   
-   
-}
-
-function onFormSubmit(e) {
-  e.preventDefault()
-
-  if(employeeIndex != null) updateEmployee();
-  else createEmployee();
-// console.log(localStorage.getItem('employees'));
-}
-
-
-function editEmployee(element) {
-  
-  console.log("edited");
-  
-  selectedRow = element.parentElement.parentElement;
-
-  employeeIndex = selectedRow.getAttribute('index');
-
-  let employee = employees[employeeIndex];
-  console.log(employee)
-  
-  document.getElementById("name").value = employee.name;
-  document.getElementById("number").value =employee.number;
-  document.getElementById("email").value = employee.email;
-  document.getElementById("address").value = employee.address;
-  document.getElementById("city").value = employee.city;
-  document.getElementById("role").value = employee.role;
-  
+function editEmployee(index){
+  var name = employees[index].name;
+  var number = employees[index].number;
+  var email = employees[index].email;
+  var address= employees[index].address;
+  var city = employees[index].city;
+  var role = employees[index].role;
+  const rowValue = {name,number,email,address,city,role};
+  localStorage.setItem('rowValue',JSON.stringify(rowValue));
   location.href = "updateemployee.html?idx="+index;
-  
-  
+
 }
 function show(index) {
   var name = employees[index].name;
